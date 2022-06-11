@@ -1,15 +1,28 @@
 const reader = process.stdin;
 
-const readSingleCharecter = () => {
+const readSingleCharecter = (callback) => {
   reader.setRawMode(true);
   reader.setEncoding('utf8');
-
-  reader.on('data', (charecter) => {
-    // console.log(charecter);
-    if (charecter === 'q') {
-      process.exit(0);
-    }
-  });
+  reader.on('data', callback);
 }
 
-readSingleCharecter();
+const processKeystokes = (key) => {
+  let message = 'Oops!';
+  if (key === 'q') {
+    process.exit(0);
+  }
+  if (key === 'h') {
+    message = 'hi';
+  }
+  if (key === 'b') {
+    message = 'bye';
+  }
+
+  console.log(message);
+};
+
+const main = () => {
+  readSingleCharecter(processKeystokes);
+};
+
+main();
